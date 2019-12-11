@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>最佳置换算法</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        html,body{
+            width: 100%;
+            height: 100%;
+        }
+        .box{
+            width: 100%;
+            height: 300px;
+            background-color: paleturquoise;
+        }
+        .top{
+            width: 50px;
+            height: 50px;
+            background-color: red;
+            margin: 0 auto;
+        }
+        .middle{
+            width: 52px;
+            height: 154px;
+            background-color: yellow;
+            border: 1px solid black;
+            box-sizing: border-box;
+            position: relative;
+            display: inline-block;
+        }
+        .bottom{
+            width: 50px;
+            height: 50px;
+            background-color: red;
+            border: 1px solid black;
+            box-sizing: border-box;
+            line-height: 50px;
+            text-align: center;
+        }
+        .top_line,.bottom_line{
+            width: 50px;
+            height: 1px;
+            background-color: black;
+
+        }
+        .top_line{
+            position: absolute;
+            left: 0;
+            top: 50px;
+        }
+        .bottom_line{
+            position: absolute;
+            left: 0;
+            top: 101px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box" id="box">
+        <div class="top">
+
+        </div>
+       <div style="background-color: pink;position: relative;height: 150px" id="con">
+
+       </div>
+        <div class="bottom" id="bottom"></div>
+    </div>
+
+    <script>
+        window.onload = function(){
+            Array.prototype.insert = function (index, item) {
+                this.splice(index, 0, parseInt(item));
+            };
+            let offsetLeft;
+            let  offsetTop;
+            let absoluteT = ["102px","51px","0px"];
+            //即将要放入的索引
+            let index = 0;
+            //记录物理块中已存在的页号
+            let pageNumberArray = new Array();
+            let count = 0;
+            let array = [7,0,0,2,1,3,0,4,2,3,0,3,2,1,2,0,1,7,0,1];
+            let ele = document.getElementById("bottom");
+            let viewPortOffset = getViewPortOffset();
+            let width = viewPortOffset.width;
+            ele.style.position = "absolute";
+            ele.style.left = width/2 - ele.offsetWidth/2 + "px";
+           /* for (let i = 0;i < 19;i++){
+                let number = Math.floor(Math.random() * 8);
+                array.push(number);
+               }
+            console.log(array);*/
+            //生成动画对象
+            function generateAnimation(beginL,begigT,middleL,middleT,endL,endT){
+                const runkeyframes = '@keyframes move{0% {left:'+beginL+";"+"top:"+begigT+";}"+"50% {left:"+middleL+";"+"top:"+middleT+";}"+"100% {left:"+endL+";"+"top:"+endT+";} }";
+                return runkeyframes;
+            }
+            //获取浏览器宽高
+            function getViewPortOffset(){
+                if(window.innerWidth){
+                    return {
+                        width:window.innerWidth,
+                        height:window.innerHeight
+                    }
+                }else{
+                    //混杂模式（兼容IE8以下）
+                    if(document.compatMode == 'BackCompat'){
+                        return{
+                            width:document.body.clientWidth,
+                            height:document.body.clientHeight
+                        }
+                    }else{
+                        return {
+                            width:document.documentElement.clientWidth,
+                            height:document.documentElement.clientHeight
+                        }
+                    }
+                }
+            }
+            //置换
+            function turnOut(node,index){
+                let generateAnimation1 = generateAnimation(offsetLeft,offsetTop,"0px",offsetTop,"0px",absoluteT[index]);
+                document.styleSheets[0].insertRule(generateAnimation1,9);
+                node.style.animation = "move 1s linear both";
+                node.style.left = "0px";
+                node.style.top = absoluteT[index];
+                console.log(pageNumberArray[index]+"aaaaaaaa");
+                console.log(pageNumberArray);
+                pageNumberArray.splice(index,1);
+                console.log(pageNumberArray);
+                pageNumberArray.insert(index,node.innerText);
+                console.log(pageNumberArray);
+            }
+            window.onclick = function(){
+                let divElement = null;
+                if (count == 0){
+                    divElement = document.createElement("div");
+                    let idAttr = document.createAttribute("id");
+                    idAttr.value = "middle"+count;
+                    let classAttr = document.createAttribute("class");
+                    classAttr.value = "middle";
+                    divElement.setAttributeNode(idAttr);
+                    divElement.setAttributeNode(classAttr);
+                    /*topLine*/
+                    let topLine = document.createElement("div");
+                    let topLineClass = document.createAttribute("class");
+                    topLineClass.value = "top_line";
+                    topLine.setAttributeNode(topLineClass);
+                    divElement.appendChild(topLine);
+                    /*bottom_line*/
+                    let bottom_line = document.createElement("div");
+                    let bottom_lineClass = document.createAttribute("class");
+                    bottom_lineClass.value = "bottom_line";
+                    bottom_line.setAttributeNode(bottom_lineClass);
+                    divElement.appendChild(bottom_line);
+                    let elementById = document.getElementById("con");
+                    elementById.appendChild(divElement);
+                }else {
+                    let previousEle = document.getElementById("middle"+(count - 1));
+                    let node = previousEle.cloneNode(true);
+                    node.setAttribute("id","middle"+count);
+                    previousEle.parentNode.appendChild(node);
+                    divElement = node;
+                }
+                //产生缺页中断
+                if (!pageNumberArray.includes(array[count]) || pageNumberArray.includes(""+array[count])){
+                      /*  let middleEle = document.getElementById("middle"+count);
+                        let node = middleEle.cloneNode(true);
+                       /!* let childNodes = node.childNodes;
+                        for (let i = 0;i < childNodes.length;i++){
+                            let j = 0;
+                        }
+                        alert(node.offsetLeft);*!/
+                        node.setAttribute("id","middle"+count);
+                        middleEle.parentNode.appendChild(node);*/
+                    offsetLeft = ele.offsetLeft + "px";
+                    offsetTop = ele.offsetTop + "px";
+                    let cloneNode = ele.cloneNode(true);
+                    cloneNode.setAttribute("id","bottom"+count);
+                    let container = document.getElementById("middle"+count);
+                    container.appendChild(cloneNode);
+                    cloneNode.style.position = "absolute";
+                    cloneNode.style.backgroundColor = "blue";
+                    cloneNode.style.left = offsetLeft;
+                    cloneNode.style.top = offsetTop;
+                    cloneNode.innerText = array[count];
+
+                    let eles = document.getElementsByClassName("bottom");
+                    for (let i = 0;i < eles.length;i++){
+                       eles[i].addEventListener("animationend",function () {
+                           this.style.animation = "none";
+                           console.log(document.styleSheets[0].cssRules[9]);
+                           document.styleSheets[0].deleteRule(9);
+                           console.log(document.styleSheets[0])
+                            // let name = document.styleSheets[0].cssRules[9].name;
+                            // console.log(name);
+                       })
+                   }
+                    //尚有物理块空间
+                    if (pageNumberArray.length < 3 && count < array.length){
+                        let generateAnimation1 = generateAnimation(offsetLeft,offsetTop,"0px",offsetTop,"0px",absoluteT[index]);
+                        document.styleSheets[0].insertRule(generateAnimation1,9);
+                        cloneNode.style.animation = "move 1s linear both";
+                        cloneNode.style.left = "0px";
+                        cloneNode.style.top = absoluteT[index];
+                        pageNumberArray.push(array[count]);
+                        console.log(pageNumberArray);
+                        index ++;
+                    }else {
+                        //使用opt算法选出一个移出
+                        alert("已无物理块");
+                        let index1 = array.indexOf(pageNumberArray[0],count);
+                        let index2 = array.indexOf(pageNumberArray[1],count);
+                        let index3 = array.indexOf(pageNumberArray[2],count);
+                        if (index1 == -1){
+                            index1 = 999;
+                        }
+                        if (index2 == -1){
+                            index2 = 999;
+                        }
+                        if (index3 == -1){
+                            index3 = 999;
+                        }
+                        console.log(pageNumberArray[0],pageNumberArray[1],pageNumberArray[2]);
+                        console.log(index1,index2,index3);
+                        let maxIndex = Math.max(index1,index2,index3);
+                        //换出第一块
+                        if (index1 == maxIndex){
+                            turnOut(cloneNode,0);
+                            //换出第二块
+                        }else if (index2 == maxIndex){
+                            turnOut(cloneNode,1);
+                            //换出第三块
+                        }else{
+                            turnOut(cloneNode,2);
+                        }
+                    }
+                }else {
+                    //不缺页
+                    alert("已在物理块中")
+                }
+
+                count ++;
+            };
+
+
+        };
+
+    </script>
+</body>
+</html>
