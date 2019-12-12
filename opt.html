@@ -15,13 +15,13 @@
         .box{
             width: 100%;
             height: 300px;
-            background-color: paleturquoise;
+            background-color: pink;
         }
         .top{
-            width: 50px;
             height: 50px;
-            background-color: red;
-            margin: 0 auto;
+            background-color: pink;
+            margin-bottom: 10px;
+            padding: 10px;
         }
         .middle{
             width: 52px;
@@ -45,7 +45,6 @@
             width: 50px;
             height: 1px;
             background-color: black;
-
         }
         .top_line{
             position: absolute;
@@ -61,13 +60,13 @@
 </head>
 <body>
     <div class="box" id="box">
-        <div class="top">
+        <div class="top" id="top">
 
         </div>
        <div style="background-color: pink;position: relative;height: 150px" id="con">
 
        </div>
-        <div class="bottom" id="bottom"></div>
+       <!-- <div class="bottom" id="bottom"></div>-->
     </div>
 
     <script>
@@ -83,17 +82,34 @@
             //记录物理块中已存在的页号
             let pageNumberArray = new Array();
             let count = 0;
-            let array = [7,0,0,2,1,3,0,4,2,3,0,3,2,1,2,0,1,7,0,1];
-            let ele = document.getElementById("bottom");
+            // let array = [7,0,0,2,1,3,0,4,2,3,0,3,2,1,2,0,1,7,0,1];
+            let array = new Array();
+            // let ele = document.getElementById("bottom");
             let viewPortOffset = getViewPortOffset();
             let width = viewPortOffset.width;
-            ele.style.position = "absolute";
-            ele.style.left = width/2 - ele.offsetWidth/2 + "px";
-           /* for (let i = 0;i < 19;i++){
+            // ele.style.position = "absolute";
+            // ele.style.right = 0 + "px";
+            let topElement = document.getElementById("top");
+
+            for (let i = 0;i < 14;i++){
                 let number = Math.floor(Math.random() * 8);
+                let element = document.createElement("div");
+                element.style.backgroundColor = "white";
+                element.style.width="40px";
+                element.style.height="40px";
+                element.style.lineHeight="40px";
+                element.style.textAlign="center";
+                element.style.display="inline-block";
+                element.style.marginLeft="10px";
+                let attr = document.createAttribute("id");
+                attr.value = "number"+i;
+                element.setAttributeNode(attr);
+                element.innerText = number;
+                topElement.appendChild(element);
                 array.push(number);
                }
-            console.log(array);*/
+            console.log(array);
+            console.log(array.length);
             //生成动画对象
             function generateAnimation(beginL,begigT,middleL,middleT,endL,endT){
                 const runkeyframes = '@keyframes move{0% {left:'+beginL+";"+"top:"+begigT+";}"+"50% {left:"+middleL+";"+"top:"+middleT+";}"+"100% {left:"+endL+";"+"top:"+endT+";} }";
@@ -123,7 +139,7 @@
             }
             //置换
             function turnOut(node,index){
-                let generateAnimation1 = generateAnimation(offsetLeft,offsetTop,"0px",offsetTop,"0px",absoluteT[index]);
+                let generateAnimation1 = generateAnimation("1000px","200px","0px","200px","0px",absoluteT[index]);
                 document.styleSheets[0].insertRule(generateAnimation1,9);
                 node.style.animation = "move 1s linear both";
                 node.style.left = "0px";
@@ -166,29 +182,27 @@
                     previousEle.parentNode.appendChild(node);
                     divElement = node;
                 }
+                let numberElement = document.getElementById("number"+count);
+                numberElement.style.backgroundColor = "red";
                 //产生缺页中断
                 if (!pageNumberArray.includes(array[count]) || pageNumberArray.includes(""+array[count])){
-                      /*  let middleEle = document.getElementById("middle"+count);
-                        let node = middleEle.cloneNode(true);
-                       /!* let childNodes = node.childNodes;
-                        for (let i = 0;i < childNodes.length;i++){
-                            let j = 0;
-                        }
-                        alert(node.offsetLeft);*!/
-                        node.setAttribute("id","middle"+count);
-                        middleEle.parentNode.appendChild(node);*/
-                    offsetLeft = ele.offsetLeft + "px";
-                    offsetTop = ele.offsetTop + "px";
-                    let cloneNode = ele.cloneNode(true);
-                    cloneNode.setAttribute("id","bottom"+count);
+                    // offsetLeft = ele.offsetLeft + "px";
+                    // offsetTop = ele.offsetTop + "px";
+                    // alert(offsetLeft);
+                    let cloneNode = document.createElement("div");
+                    let cloneNodeClass = document.createAttribute("class");
+                    let cloneNodeId = document.createAttribute("id");
+                    cloneNodeClass.value = "bottom";
+                    cloneNodeId.value = "bottom"+count;
+                    cloneNode.setAttributeNode(cloneNodeClass);
+                    cloneNode.setAttributeNode(cloneNodeId);
                     let container = document.getElementById("middle"+count);
                     container.appendChild(cloneNode);
+                    cloneNode.style.display="block";
                     cloneNode.style.position = "absolute";
                     cloneNode.style.backgroundColor = "blue";
-                    cloneNode.style.left = offsetLeft;
-                    cloneNode.style.top = offsetTop;
                     cloneNode.innerText = array[count];
-
+            
                     let eles = document.getElementsByClassName("bottom");
                     for (let i = 0;i < eles.length;i++){
                        eles[i].addEventListener("animationend",function () {
@@ -202,7 +216,8 @@
                    }
                     //尚有物理块空间
                     if (pageNumberArray.length < 3 && count < array.length){
-                        let generateAnimation1 = generateAnimation(offsetLeft,offsetTop,"0px",offsetTop,"0px",absoluteT[index]);
+                        let generateAnimation1 = generateAnimation("1000px","200px","0px","200px","0px",absoluteT[index]);
+                        // let generateAnimation1 = generateAnimation("200px","-50px","0px",offsetTop,"0px",absoluteT[index]);
                         document.styleSheets[0].insertRule(generateAnimation1,9);
                         cloneNode.style.animation = "move 1s linear both";
                         cloneNode.style.left = "0px";
@@ -243,8 +258,11 @@
                     //不缺页
                     alert("已在物理块中")
                 }
-
                 count ++;
+                if (count == array.length){
+                    alert("运行结束");
+                    window.onclick = "none";
+                }
             };
 
 
