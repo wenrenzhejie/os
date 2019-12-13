@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>最佳置换算法</title>
+    <title>先进先出置换算法</title>
     <style>
         *{
             margin: 0;
@@ -83,7 +83,7 @@
             let pageNumberArray = new Array();
             let existBlock = new Array();
             let count = 0;
-            // let array = [1, 4, 7, 0, 4, 2, 7, 4, 4, 2, 4, 4, 3, 2];
+            // let array = [7,0,1,2,0,3,0,4,2,3,0,3,2,1];
             let array = new Array();
             // let ele = document.getElementById("bottom");
             let viewPortOffset = getViewPortOffset();
@@ -140,11 +140,9 @@
             }
             //置换
             function turnOut(node,index){
-                console.log("index:"+index);
-                console.log(node);
                 let element = document.querySelector("#middle"+(count)+" div:nth-child("+(3+index)+")");
-                element.parentNode.insertBefore(node,element);
-                console.log(element);
+                element.parentNode.appendChild(node);
+                // console.log(element);
                 let left = element.style.left;
                 let top = element.style.top;
                 let generateAnimation2 = generateAnimation(left,top,"0px","200px","-200px","200px");
@@ -153,25 +151,48 @@
                 element.addEventListener("animationend",function () {
                     this.style.animation = "none";
                     document.styleSheets[0].deleteRule(9);
-                    // let container = document.getElementById("middle"+count);
-                    // console.log(container);
-                    // container.insertBefore(node,element);
-                    let generateAnimation1 = generateAnimation("500px","200px","0px","200px","0px",absoluteT[index]);
-                    document.styleSheets[0].insertRule(generateAnimation1,9);
-                    // console.log(document.styleSheets[0]);
-                    node.style.animation = "move 3s linear";
-                    console.log(node);
-                    node.style.left = "0px";
-                    node.style.top = absoluteT[index];
-                    pageNumberArray.splice(index,1);
-                    pageNumberArray.insert(index,node.innerText);
-                    console.log(element.parentNode);
-                    console.log(pageNumberArray);
-                    node.addEventListener("animationend",function () {
-                        this.style.animation = "none";
-                        document.styleSheets[0].deleteRule(9);
-                    });
+                   //将这个节点的两个兄弟节点下移
+                    let nextSibling1 = element.nextSibling;
+                    let sibling1L = nextSibling1.style.left;
+                    let sibling1T = nextSibling1.style.top;
+                    let nextSibling2 =nextSibling1.nextSibling;
+                   let generateAnimation3 = generateAnimation(nextSibling1.style.left,nextSibling1.style.top,"0px","75px",element.style.left,element.style.top);
                     element.parentNode.removeChild(element);
+                    document.styleSheets[0].insertRule(generateAnimation3,9);
+                    nextSibling1.style.animation ="move 1s linear both";
+                        nextSibling1.addEventListener("animationend",function () {
+                            nextSibling1.style.animation = "none";
+                            nextSibling1.style.left = element.style.left;
+                            nextSibling1.style.top = element.style.top;
+                            document.styleSheets[0].deleteRule(9);
+                            let generateAnimation4 = generateAnimation(nextSibling2.style.left,nextSibling2.style.top,"0px","25px",sibling1L,sibling1T);
+                            document.styleSheets[0].insertRule(generateAnimation4,9);
+                            nextSibling2.style.animation ="move 1s linear both";
+                            nextSibling2.addEventListener("animationend",function () {
+                                nextSibling2.style.animation = "none";
+                                nextSibling2.style.left = sibling1L;
+                                nextSibling2.style.top = sibling1T;
+                                document.styleSheets[0].deleteRule(9);
+
+                                let generateAnimation1 = generateAnimation("1000px","200px","0px","200px","0px",absoluteT[2]);
+                                document.styleSheets[0].insertRule(generateAnimation1,9);
+                                // console.log(document.styleSheets[0]);
+                                node.style.animation = "move 3s linear";
+                                console.log(node);
+                                node.style.left = "0px";
+                                node.style.top = absoluteT[2];
+                                pageNumberArray.splice(index,1);
+                                pageNumberArray.push(parseInt(node.innerText));
+                                console.log(pageNumberArray);
+
+                                node.addEventListener("animationend",function () {
+                                    node.style.animation = "none";
+                                    document.styleSheets[0].deleteRule(9);
+                                });
+                            });
+                    });
+
+
                 });
 
             }
@@ -227,64 +248,23 @@
                     if (pageNumberArray.length < 3 && count < array.length){
                         let container = document.getElementById("middle"+count);
                         container.appendChild(cloneNode);
-                        // alert("aaaaaaaa");
                         existBlock.push(cloneNode);
-                       /* let eles = document.getElementsByClassName("bottom");
-                        for (let i = 0;i < eles.length;i++){
-                            eles[i].addEventListener("animationend",function () {
-                                this.style.animation = "none";
-                                console.log(document.styleSheets[0].cssRules[9]);
-                                document.styleSheets[0].deleteRule(9);
-                                // console.log(document.styleSheets[0])
-                                // let name = document.styleSheets[0].cssRules[9].name;
-                                // console.log(name);
-                            })
-                        }*/
                         cloneNode.addEventListener("animationend",function () {
                             this.style.animation = "none";
-                            // console.log(document.styleSheets[0].cssRules[9]);
                             document.styleSheets[0].deleteRule(9);
-                            // console.log(document.styleSheets[0])
-                            // let name = document.styleSheets[0].cssRules[9].name;
-                            // console.log(name);
+
                         });
                         let generateAnimation1 = generateAnimation("1000px","200px","0px","200px","0px",absoluteT[index]);
-                        // let generateAnimation1 = generateAnimation("200px","-50px","0px",offsetTop,"0px",absoluteT[index]);
                         document.styleSheets[0].insertRule(generateAnimation1,9);
                         cloneNode.style.animation = "move 3s linear";
                         cloneNode.style.left = "0px";
                         cloneNode.style.top = absoluteT[index];
-                        pageNumberArray.push(parseInt(array[count]));
+                        pageNumberArray.push(array[count]);
                         console.log(pageNumberArray);
                         index ++;
                     }else {
-                        //使用opt算法选出一个移出
-                        alert("已无物理块");
-                        let index1 = array.indexOf(pageNumberArray[0],count);
-                        let index2 = array.indexOf(pageNumberArray[1],count);
-                        let index3 = array.indexOf(pageNumberArray[2],count);
-                        if (index1 == -1){
-                            index1 = 999;
-                        }
-                        if (index2 == -1){
-                            index2 = 999;
-                        }
-                        if (index3 == -1){
-                            index3 = 999;
-                        }
-                        console.log(pageNumberArray[0],pageNumberArray[1],pageNumberArray[2]);
-                        console.log(index1,index2,index3);
-                        let maxIndex = Math.max(index1,index2,index3);
-                        //换出第一块
-                        if (index1 == maxIndex){
-                            turnOut(cloneNode,0);
-                            //换出第二块
-                        }else if (index2 == maxIndex){
-                            turnOut(cloneNode,1);
-                            //换出第三块
-                        }else{
-                            turnOut(cloneNode,2);
-                        }
+                        alert("需要置换");
+                       turnOut(cloneNode,0)
                     }
                 }else {
                     //不缺页
