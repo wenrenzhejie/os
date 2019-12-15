@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>最近最久未使用算法</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        html,body{
+            width: 100%;
+            height: 100%;
+        }
+        .box{
+            width: 100%;
+            height: 300px;
+            background-color: pink;
+        }
+        .top{
+            height: 50px;
+            background-color: pink;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+        .middle{
+            width: 52px;
+            height: 154px;
+            background-color: yellow;
+            border: 1px solid black;
+            box-sizing: border-box;
+            position: relative;
+            display: inline-block;
+        }
+        .bottom{
+            width: 50px;
+            height: 50px;
+            background-color: red;
+            border: 1px solid black;
+            box-sizing: border-box;
+            line-height: 50px;
+            text-align: center;
+        }
+        .top_line,.bottom_line{
+            width: 50px;
+            height: 1px;
+            background-color: black;
+        }
+        .top_line{
+            position: absolute;
+            left: 0;
+            top: 50px;
+        }
+        .bottom_line{
+            position: absolute;
+            left: 0;
+            top: 101px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box" id="box">
+        <div class="top" id="top">
+
+        </div>
+       <div style="background-color: pink;position: relative;height: 150px" id="con">
+
+       </div>
+       <!-- <div class="bottom" id="bottom"></div>-->
+    </div>
+
+    <script>
+        window.onload = function(){
+            Array.prototype.insert = function (index, item) {
+                this.splice(index, 0, parseInt(item));
+            };
+            let offsetLeft;
+            let  offsetTop;
+            let absoluteT = ["102px","51px","0px"];
+            //即将要放入的索引
+            let index = 0;
+            //记录物理块中已存在的页号
+            let pageNumberArray = new Array();
+            let existBlock = new Array();
+            let count = 0;
+            let array = new Array();
+            // let array  = [3, 4, 7, 6, 7, 4, 6, 5, 7, 3, 0, 3, 3, 7];
+            // let ele = document.getElementById("bottom");
+            let viewPortOffset = getViewPortOffset();
+            let width = viewPortOffset.width;
+            // ele.style.position = "absolute";
+            // ele.style.right = 0 + "px";
+            let topElement = document.getElementById("top");
+            // console.log(array);
+            for (let i = 0;i < 14;i++){
+                let number = Math.floor(Math.random() * 8);
+                let element = document.createElement("div");
+                element.style.backgroundColor = "white";
+                element.style.width="40px";
+                element.style.height="40px";
+                element.style.lineHeight="40px";
+                element.style.textAlign="center";
+                element.style.display="inline-block";
+                element.style.marginLeft="10px";
+                let attr = document.createAttribute("id");
+                attr.value = "number"+i;
+                element.setAttributeNode(attr);
+                element.innerText = number;
+                topElement.appendChild(element);
+                array.push(parseInt(number));
+               }
+
+            console.log(array);
+            // console.log(array.length);
+            //生成动画对象
+            function generateAnimation(beginL,begigT,middleL,middleT,endL,endT){
+                const runkeyframes = '@keyframes move{0% {left:'+beginL+";"+"top:"+begigT+";}"+"50% {left:"+middleL+";"+"top:"+middleT+";}"+"100% {left:"+endL+";"+"top:"+endT+";} }";
+                return runkeyframes;
+            }
+            //获取浏览器宽高
+            function getViewPortOffset(){
+                if(window.innerWidth){
+                    return {
+                        width:window.innerWidth,
+                        height:window.innerHeight
+                    }
+                }else{
+                    //混杂模式（兼容IE8以下）
+                    if(document.compatMode == 'BackCompat'){
+                        return{
+                            width:document.body.clientWidth,
+                            height:document.body.clientHeight
+                        }
+                    }else{
+                        return {
+                            width:document.documentElement.clientWidth,
+                            height:document.documentElement.clientHeight
+                        }
+                    }
+                }
+            }
+            //置换
+            function turnOut(node,index){
+                let element = document.querySelector("#middle"+(count)+" div:nth-child("+(3+index)+")");
+                element.parentNode.appendChild(node);
+                // console.log(element);
+                let left = element.style.left;
+                let top = element.style.top;
+                let generateAnimation2 = generateAnimation(left,top,"0px","200px","-200px","200px");
+                document.styleSheets[0].insertRule(generateAnimation2,9);
+                element.style.animation = "move 3s linear both";
+                element.addEventListener("animationend",function () {
+                    this.style.animation = "none";
+                    document.styleSheets[0].deleteRule(9);
+                   //将这个节点的两个兄弟节点下移
+                    let nextSibling1 = element.nextSibling;
+                    let sibling1L = nextSibling1.style.left;
+                    let sibling1T = nextSibling1.style.top;
+                    let nextSibling2 =nextSibling1.nextSibling;
+                   let generateAnimation3 = generateAnimation(nextSibling1.style.left,nextSibling1.style.top,"0px","75px",element.style.left,element.style.top);
+                    element.parentNode.removeChild(element);
+                    document.styleSheets[0].insertRule(generateAnimation3,9);
+                    nextSibling1.style.animation ="move 1s linear both";
+                        nextSibling1.addEventListener("animationend",function () {
+                            nextSibling1.style.animation = "none";
+                            nextSibling1.style.left = element.style.left;
+                            nextSibling1.style.top = element.style.top;
+                            document.styleSheets[0].deleteRule(9);
+                            let generateAnimation4 = generateAnimation(nextSibling2.style.left,nextSibling2.style.top,"0px","25px",sibling1L,sibling1T);
+                            document.styleSheets[0].insertRule(generateAnimation4,9);
+                            nextSibling2.style.animation ="move 1s linear both";
+                            nextSibling2.addEventListener("animationend",function () {
+                                nextSibling2.style.animation = "none";
+                                nextSibling2.style.left = sibling1L;
+                                nextSibling2.style.top = sibling1T;
+                                document.styleSheets[0].deleteRule(9);
+
+                                let generateAnimation1 = generateAnimation("1000px","200px","0px","200px","0px",absoluteT[2]);
+                                document.styleSheets[0].insertRule(generateAnimation1,9);
+                                // console.log(document.styleSheets[0]);
+                                node.style.animation = "move 3s linear";
+                                console.log(node);
+                                node.style.left = "0px";
+                                node.style.top = absoluteT[2];
+                                pageNumberArray.splice(index,1);
+                                pageNumberArray.push(parseInt(node.innerText));
+                                console.log(pageNumberArray);
+
+                                node.addEventListener("animationend",function () {
+                                    node.style.animation = "none";
+                                    document.styleSheets[0].deleteRule(9);
+                                });
+                            });
+                    });
+
+
+                });
+
+            }
+            function move(index){
+                let node1 = document.querySelector("#middle"+(count)+" div:nth-child("+(3+index)+")");
+                move2(4,node1,index);
+                console.log(node1);
+            }
+            function move2(number,node1,index){
+                let node2 = document.querySelector("#middle"+(count)+" div:nth-child("+(number+index)+")");
+                if (node2 == null){
+                    count ++;
+                    if (count == array.length){
+                        alert("运行结束");
+                        window.onclick = "none";
+                    }
+                } else {
+                    //先移动
+                    let top1 = node1.style.top;
+                    let top2 = node2.style.top;
+                    let middle = (parseInt(top1) + parseInt(top2))/2;
+                    let generateAnimation5 = generateAnimation("0px",top1,"0px",middle+"px","0px",top2);
+                    document.styleSheets[0].insertRule(generateAnimation5,9);
+                    node1.style.animation = "move 1s linear";
+                    node1.addEventListener("animationend",function () {
+                        document.styleSheets[0].deleteRule(9);
+                        node1.style.animation = "none";
+                        node1.style.left = "0px";
+                        node1.style.top = top2;
+                        let generateAnimation1 = generateAnimation("0px",top2,"0px",middle + "px","0px",top1);
+                        document.styleSheets[0].insertRule(generateAnimation1,9);
+                        node2.style.animation = "move 1s linear";
+                        node2.addEventListener("animationend",function () {
+                            document.styleSheets[0].deleteRule(9);
+                            node2.style.animation = "none";
+                            node2.style.left = "0px";
+                            node2.style.top = top1;
+                            let node = node2.cloneNode(true);
+                            node2.parentNode.insertBefore(node,node1);
+                            let number1 = pageNumberArray.indexOf(parseInt(node1.innerText));
+                            let number2 = pageNumberArray.indexOf(parseInt(node2.innerText));
+                            let temp = 0;
+                            temp = pageNumberArray[number1];
+                            pageNumberArray[number1] = pageNumberArray[number2];
+                            pageNumberArray[2] = temp;
+                            node2.parentNode.removeChild(node2);
+                            move2(number+1,node1,index)
+                        });
+                    });
+                }
+            }
+            window.onclick = function(){
+                let divElement = null;
+                if (count == 0){
+                    divElement = document.createElement("div");
+                    let idAttr = document.createAttribute("id");
+                    idAttr.value = "middle"+count;
+                    let classAttr = document.createAttribute("class");
+                    classAttr.value = "middle";
+                    divElement.setAttributeNode(idAttr);
+                    divElement.setAttributeNode(classAttr);
+                    /*topLine*/
+                    let topLine = document.createElement("div");
+                    let topLineClass = document.createAttribute("class");
+                    topLineClass.value = "top_line";
+                    topLine.setAttributeNode(topLineClass);
+                    divElement.appendChild(topLine);
+                    /*bottom_line*/
+                    let bottom_line = document.createElement("div");
+                    let bottom_lineClass = document.createAttribute("class");
+                    bottom_lineClass.value = "bottom_line";
+                    bottom_line.setAttributeNode(bottom_lineClass);
+                    divElement.appendChild(bottom_line);
+                    let elementById = document.getElementById("con");
+                    elementById.appendChild(divElement);
+                }else {
+                    let previousEle = document.getElementById("middle"+(count - 1));
+                    let node = previousEle.cloneNode(true);
+                    node.setAttribute("id","middle"+count);
+                    previousEle.parentNode.appendChild(node);
+                    divElement = node;
+                }
+                let numberElement = document.getElementById("number"+count);
+                numberElement.style.backgroundColor = "red";
+                let cloneNode = document.createElement("div");
+                let cloneNodeClass = document.createAttribute("class");
+                let cloneNodeId = document.createAttribute("id");
+                cloneNodeClass.value = "bottom";
+                cloneNodeId.value = "bottom"+count;
+                cloneNode.setAttributeNode(cloneNodeClass);
+                cloneNode.setAttributeNode(cloneNodeId);
+                cloneNode.style.display="inline-block";
+                cloneNode.style.position = "absolute";
+                cloneNode.style.backgroundColor = "blue";
+                cloneNode.style.left = "1000px";
+                cloneNode.style.top = "200px";
+                cloneNode.innerText = array[count];
+                //产生缺页中断
+                if (!pageNumberArray.includes(array[count])){
+                    //尚有物理块空间
+                    if (pageNumberArray.length < 3 && count < array.length){
+                        let container = document.getElementById("middle"+count);
+                        container.appendChild(cloneNode);
+                        existBlock.push(cloneNode);
+                        cloneNode.addEventListener("animationend",function () {
+                            this.style.animation = "none";
+                            document.styleSheets[0].deleteRule(9);
+
+                        });
+                        let generateAnimation1 = generateAnimation("1000px","200px","0px","200px","0px",absoluteT[index]);
+                        document.styleSheets[0].insertRule(generateAnimation1,9);
+                        cloneNode.style.animation = "move 1s linear";
+                        cloneNode.style.left = "0px";
+                        cloneNode.style.top = absoluteT[index];
+                        pageNumberArray.push(array[count]);
+                        console.log(pageNumberArray);
+                        index ++;
+                    }else {
+                        alert("需要置换");
+                       turnOut(cloneNode,0)
+                    }
+                    count ++;
+                    if (count == array.length){
+                        alert("运行结束");
+                        window.onclick = "none";
+                    }
+                }else {
+                    //不缺页
+                    alert("已在物理块中");
+                    let index = pageNumberArray.indexOf(array[count]);
+                    console.log(array);
+                    console.log(index);
+                    move(index);
+                }
+
+            };
+
+
+        };
+
+    </script>
+</body>
+</html>
