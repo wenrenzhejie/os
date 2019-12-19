@@ -83,6 +83,8 @@
             let pageNumberArray = new Array();
             let existBlock = new Array();
             let count = 0;
+            //缺页次数
+            let shortCount = 0;
             // let array = [1, 4, 7, 0, 4, 2, 7, 4, 4, 2, 4, 4, 3, 2];
             let array = new Array();
             // let ele = document.getElementById("bottom");
@@ -109,6 +111,7 @@
                 topElement.appendChild(element);
                 array.push(number);
                }
+            // array = [5, 4, 0, 1, 6, 5, 0, 0, 7, 6, 3, 2, 0, 1];
             console.log(array);
             // console.log(array.length);
             //生成动画对象
@@ -142,8 +145,7 @@
             function turnOut(node,index){
                 console.log("index:"+index);
                 console.log(node);
-                console.log(count);
-                let element = document.querySelector("#middle"+count+" div:nth-child("+(3+index)+")");
+                let element = document.querySelector("#middle"+(count)+" div:nth-child("+(4+index)+")");
                 element.parentNode.insertBefore(node,element);
                 console.log(element);
                 let left = element.style.left;
@@ -169,9 +171,16 @@
                     console.log(element.parentNode);
                     console.log(pageNumberArray);
                     node.addEventListener("animationend",function () {
-                        this.style.animation = "none";
+                        node.style.animation = "none";
                         document.styleSheets[0].deleteRule(9);
-                        count++;
+                        count ++;
+                        if (count == array.length){
+                            document.getElementById("number"+(count - 1)).style.backgroundColor = "red";
+                            alert("运行结束");
+                            alert("缺页次数"+shortCount+"\n"+"缺页率："+(shortCount/14));
+                            window.onclick = "none";
+                            return;
+                        }
                     });
                     element.parentNode.removeChild(element);
                 });
@@ -204,9 +213,32 @@
                     bottom_lineClass.value = "bottom_line";
                     bottom_line.setAttributeNode(bottom_lineClass);
                     divElement.appendChild(bottom_line);
+                    let imgDivEle = document.createElement("div");
+                    imgDivEle.style.width = "30px";
+                    imgDivEle.style.height = "30px";
+                    // imgDivEle.style.backgroundColor = "green";
+                    imgDivEle.style.position = "absolute";
+                    imgDivEle.style.left = "10px";
+                    imgDivEle.style.bottom = "-31px";
+                    imgDivEle.style.lineHeight = "30px";
+                    imgDivEle.style.textAlign = "center";
+                    let imgEle = document.createElement("img");
+                    imgEle.src = "right.png";
+                    imgEle.style.display = "none";
+                    // let imgId = document.createAttribute("id");
+                    // imgId.value = "img"+count;
+                    // imgEle.setAttributeNode(imgId);
+                    imgDivEle.appendChild(imgEle);
+                    divElement.appendChild(imgDivEle);
                     let elementById = document.getElementById("con");
                     elementById.appendChild(divElement);
                 }else {
+                    if (count == array.length){
+                        alert("运行结束");
+                        alert("缺页次数"+shortCount+"\n"+"缺页率："+(shortCount/14));
+                        window.onclick = "none";
+                        return;
+                    }
                     let previousEle = document.getElementById("middle"+(count - 1));
                     let node = previousEle.cloneNode(true);
                     node.setAttribute("id","middle"+count);
@@ -230,34 +262,25 @@
                 cloneNode.innerText = array[count];
                 //产生缺页中断
                 if (!pageNumberArray.includes(array[count])){
+                    let rightImg = document.querySelector("#middle"+count+" img");
+                    // console.log(rightImg);
+                    rightImg.style.display = "inline";
+                    shortCount ++;
                     //尚有物理块空间
                     if (pageNumberArray.length < 3 && count < array.length){
                         let container = document.getElementById("middle"+count);
                         container.appendChild(cloneNode);
-                        // alert("aaaaaaaa");
-                        existBlock.push(cloneNode);
-                       /* let eles = document.getElementsByClassName("bottom");
-                        for (let i = 0;i < eles.length;i++){
-                            eles[i].addEventListener("animationend",function () {
-                                this.style.animation = "none";
-                                console.log(document.styleSheets[0].cssRules[9]);
-                                document.styleSheets[0].deleteRule(9);
-                                // console.log(document.styleSheets[0])
-                                // let name = document.styleSheets[0].cssRules[9].name;
-                                // console.log(name);
-                            })
-                        }*/
                         cloneNode.addEventListener("animationend",function () {
                             this.style.animation = "none";
-                            // console.log(document.styleSheets[0].cssRules[9]);
                             document.styleSheets[0].deleteRule(9);
-                            count++;
-                            // console.log(document.styleSheets[0])
-                            // let name = document.styleSheets[0].cssRules[9].name;
-                            // console.log(name);
+                            if (count == array.length){
+                                alert("运行结束");
+                                alert("缺页次数"+shortCount+"\n"+"缺页率："+(shortCount/14));
+                                window.onclick = "none";
+                                return;
+                            }
                         });
                         let generateAnimation1 = generateAnimation("1000px","200px","0px","200px","0px",absoluteT[index]);
-                        // let generateAnimation1 = generateAnimation("200px","-50px","0px",offsetTop,"0px",absoluteT[index]);
                         document.styleSheets[0].insertRule(generateAnimation1,9);
                         cloneNode.style.animation = "move 1s linear";
                         cloneNode.style.left = "0px";
@@ -265,17 +288,11 @@
                         pageNumberArray.push(parseInt(array[count]));
                         console.log(pageNumberArray);
                         index ++;
+                        count ++;
                     }else {
-                        //使用opt算法选出一个移出
                         alert("已无物理块");
                         let i = count + 1;
-                        console.log(i);
-                        // let j = 0;
-                        // console.log(i);
-                        /*let index1 = array.indexOf(pageNumberArray[0],count);
-                        let index2 = array.indexOf(pageNumberArray[1],count);
-                        let index3 = array.indexOf(pageNumberArray[2],count);*/
-
+                        //使用opt算法选出一个移出
                         let index1 = -1;
                         let index2 = -1;
                         let index3 = -1;
@@ -295,9 +312,9 @@
                                 }
                                 if (pageNumberArray[0] == array[i]){
                                     clearInterval(f1);
-                                    i = count + 1;
                                     flag = true;
                                     index1 = i;
+                                    i = count + 1;
 
                                 }else {
                                     i ++;
@@ -306,6 +323,9 @@
                                 let numberEle = document.getElementById("number"+(i-1));
                                 numberEle.style.backgroundColor = "white";
                                 index1 = 999;
+                                if (numberEle.style.backgroundColor == "green"){
+                                    numberEle.style.backgroundColor = "white";
+                                }
                                 clearInterval(f1);
                                 i = count + 1;
                                 flag = true;
@@ -327,15 +347,17 @@
                                         }
                                         if (pageNumberArray[1] == array[i]){
                                             clearInterval(f2);
-                                            i = count + 1;
                                             index2 = i;
+                                            i = count + 1;
                                             flag = true;
                                         }else {
                                             i ++;
                                         }
                                     }else {
                                         let numberEle = document.getElementById("number"+(i-1));
-                                        numberEle.style.backgroundColor = "white";
+                                        if (numberEle.style.backgroundColor == "yellow"){
+                                            numberEle.style.backgroundColor = "white";
+                                        }
                                         clearInterval(f2);
                                         flag = true;
                                         i = count + 1;
@@ -366,7 +388,9 @@
                                                 }
                                             }else {
                                                 let numberEle = document.getElementById("number"+(i-1));
-                                                numberEle.style.backgroundColor = "white";
+                                                if (numberEle.style.backgroundColor == "blue"){
+                                                    numberEle.style.backgroundColor = "white";
+                                                }
                                                 clearInterval(f3);
                                                 index3 = 999;
                                                 flag = true;
@@ -384,20 +408,18 @@
                                                     turnOut(cloneNode,2);
                                                 }
                                             }
-                                        },1000);
+                                        },500);
                                     }
-                                },1000);
+                                },500);
                             }
-                        },1000);
+                        },500);
                     }
                 }else {
+                    let rightImg = document.querySelector("#middle"+count+" img");
+                    rightImg.style.display = "none";
                     //不缺页
                     alert("已在物理块中");
                     count++;
-                }
-                if (count == array.length){
-                    alert("运行结束");
-                    window.onclick = "none";
                 }
             };
 

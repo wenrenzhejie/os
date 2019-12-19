@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e0b5abef-6a1c-4249-b6bc-45bca6b05fe2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/FIFOAdvanced.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LRUAdvanced.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OPTAdvanced.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/right.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OPTAdvanced1.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LRU.html" beforeDir="false" afterPath="$PROJECT_DIR$/LRU.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OPT.html" beforeDir="false" afterPath="$PROJECT_DIR$/OPT.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -21,22 +18,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/LRU.html">
+        <entry file="file://$PROJECT_DIR$/OPTAdvanced1.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="586">
-              <caret line="112" column="31" lean-forward="true" selection-start-line="112" selection-start-column="31" selection-end-line="112" selection-end-column="31" />
-              <folding>
-                <element signature="n#style#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/LRUAdvanced.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="436">
-              <caret line="113" column="31" lean-forward="true" selection-start-line="113" selection-start-column="31" selection-end-line="113" selection-end-column="31" />
+            <state relative-caret-position="273">
+              <caret line="173" column="18" selection-start-line="173" selection-start-column="18" selection-end-line="173" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -67,12 +52,13 @@
       <list>
         <option value="$PROJECT_DIR$/test.html" />
         <option value="$PROJECT_DIR$/opt.html" />
-        <option value="$PROJECT_DIR$/OPT.html" />
         <option value="$PROJECT_DIR$/FIFO.html" />
         <option value="$PROJECT_DIR$/OPTAdvanced.html" />
         <option value="$PROJECT_DIR$/FIFOAdvanced.html" />
         <option value="$PROJECT_DIR$/LRUAdvanced.html" />
         <option value="$PROJECT_DIR$/LRU.html" />
+        <option value="$PROJECT_DIR$/OPT.html" />
+        <option value="$PROJECT_DIR$/OPTAdvanced1.html" />
       </list>
     </option>
   </component>
@@ -160,7 +146,7 @@
       <workItem from="1576370569865" duration="2819000" />
       <workItem from="1576382959461" duration="360000" />
       <workItem from="1576635606266" duration="149000" />
-      <workItem from="1576731305845" duration="12837000" />
+      <workItem from="1576731305845" duration="24741000" />
     </task>
     <task id="LOCAL-00001" summary="完善opt算法">
       <created>1576152217602</created>
@@ -190,11 +176,18 @@
       <option name="project" value="LOCAL" />
       <updated>1576373253777</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="增强版完成">
+      <created>1576745228350</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1576745228350</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="77532000" />
+    <option name="totallyTimeSpent" value="89436000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -207,7 +200,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24966975" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -255,7 +247,8 @@
     <MESSAGE value="进一步完善opt算法" />
     <MESSAGE value="完成FIFO算法" />
     <MESSAGE value="完成LRU算法" />
-    <option name="LAST_COMMIT_MESSAGE" value="完成LRU算法" />
+    <MESSAGE value="增强版完成" />
+    <option name="LAST_COMMIT_MESSAGE" value="增强版完成" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/test.html">
@@ -276,34 +269,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/OPT.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-931">
-          <caret line="133" column="32" lean-forward="true" selection-start-line="133" selection-start-column="32" selection-end-line="133" selection-end-column="32" />
-          <folding>
-            <element signature="n#style#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/FIFO.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
           <caret line="279" lean-forward="true" selection-start-line="279" selection-end-line="279" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/OPTAdvanced.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="301">
-          <caret line="296" column="23" selection-start-line="296" selection-start-column="23" selection-end-line="296" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/FIFOAdvanced.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="672">
-          <caret line="318" column="29" lean-forward="true" selection-start-line="318" selection-start-column="29" selection-end-line="318" selection-end-column="29" />
         </state>
       </provider>
     </entry>
@@ -316,11 +285,43 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/LRU.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="586">
-          <caret line="112" column="31" lean-forward="true" selection-start-line="112" selection-start-column="31" selection-end-line="112" selection-end-column="31" />
+        <state relative-caret-position="306">
+          <caret line="102" column="52" selection-start-line="102" selection-start-column="52" selection-end-line="102" selection-end-column="52" />
           <folding>
             <element signature="n#style#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FIFOAdvanced.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2301">
+          <caret line="107" column="40" lean-forward="true" selection-start-line="107" selection-start-column="40" selection-end-line="107" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OPTAdvanced.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="286" column="59" lean-forward="true" selection-start-line="286" selection-start-column="59" selection-end-line="286" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OPT.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="279">
+          <caret line="270" column="42" lean-forward="true" selection-start-line="269" selection-start-column="22" selection-end-line="270" selection-end-column="42" />
+          <folding>
+            <element signature="n#style#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="e#12630#19391#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OPTAdvanced1.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="173" column="18" selection-start-line="173" selection-start-column="18" selection-end-line="173" selection-end-column="18" />
         </state>
       </provider>
     </entry>
