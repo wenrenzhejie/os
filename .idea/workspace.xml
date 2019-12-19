@@ -2,8 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e0b5abef-6a1c-4249-b6bc-45bca6b05fe2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/LRU.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FIFOAdvanced.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LRUAdvanced.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OPTAdvanced.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/right.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LRU.html" beforeDir="false" afterPath="$PROJECT_DIR$/LRU.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -19,11 +23,20 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/LRU.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="409">
-              <caret line="280" column="60" lean-forward="true" selection-start-line="280" selection-start-column="60" selection-end-line="280" selection-end-column="60" />
+            <state relative-caret-position="586">
+              <caret line="112" column="31" lean-forward="true" selection-start-line="112" selection-start-column="31" selection-end-line="112" selection-end-column="31" />
               <folding>
                 <element signature="n#style#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/LRUAdvanced.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="436">
+              <caret line="113" column="31" lean-forward="true" selection-start-line="113" selection-start-column="31" selection-end-line="113" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -56,6 +69,9 @@
         <option value="$PROJECT_DIR$/opt.html" />
         <option value="$PROJECT_DIR$/OPT.html" />
         <option value="$PROJECT_DIR$/FIFO.html" />
+        <option value="$PROJECT_DIR$/OPTAdvanced.html" />
+        <option value="$PROJECT_DIR$/FIFOAdvanced.html" />
+        <option value="$PROJECT_DIR$/LRUAdvanced.html" />
         <option value="$PROJECT_DIR$/LRU.html" />
       </list>
     </option>
@@ -141,7 +157,10 @@
       <workItem from="1576217125412" duration="5337000" />
       <workItem from="1576232547990" duration="8745000" />
       <workItem from="1576329074656" duration="4660000" />
-      <workItem from="1576370569865" duration="2480000" />
+      <workItem from="1576370569865" duration="2819000" />
+      <workItem from="1576382959461" duration="360000" />
+      <workItem from="1576635606266" duration="149000" />
+      <workItem from="1576731305845" duration="12837000" />
     </task>
     <task id="LOCAL-00001" summary="完善opt算法">
       <created>1576152217602</created>
@@ -164,11 +183,18 @@
       <option name="project" value="LOCAL" />
       <updated>1576240668402</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="完成LRU算法">
+      <created>1576373253776</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1576373253777</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="63847000" />
+    <option name="totallyTimeSpent" value="77532000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -228,7 +254,8 @@
     <MESSAGE value="完善opt算法" />
     <MESSAGE value="进一步完善opt算法" />
     <MESSAGE value="完成FIFO算法" />
-    <option name="LAST_COMMIT_MESSAGE" value="完成FIFO算法" />
+    <MESSAGE value="完成LRU算法" />
+    <option name="LAST_COMMIT_MESSAGE" value="完成LRU算法" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/test.html">
@@ -242,10 +269,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.dom.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="429">
+          <caret line="2506" column="14" lean-forward="true" selection-start-line="2506" selection-start-column="14" selection-end-line="2506" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/OPT.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="135" column="17" lean-forward="true" selection-start-line="135" selection-start-column="17" selection-end-line="135" selection-end-column="17" />
+        <state relative-caret-position="-931">
+          <caret line="133" column="32" lean-forward="true" selection-start-line="133" selection-start-column="32" selection-end-line="133" selection-end-column="32" />
           <folding>
             <element signature="n#style#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
@@ -254,22 +288,36 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/FIFO.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="159">
-          <caret line="158" column="27" lean-forward="true" selection-start-line="158" selection-start-column="27" selection-end-line="158" selection-end-column="27" />
+        <state relative-caret-position="345">
+          <caret line="279" lean-forward="true" selection-start-line="279" selection-end-line="279" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.dom.d.ts">
+    <entry file="file://$PROJECT_DIR$/OPTAdvanced.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="597">
-          <caret line="10673" column="4" selection-start-line="10673" selection-start-column="4" selection-end-line="10673" selection-end-column="4" />
+        <state relative-caret-position="301">
+          <caret line="296" column="23" selection-start-line="296" selection-start-column="23" selection-end-line="296" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FIFOAdvanced.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="672">
+          <caret line="318" column="29" lean-forward="true" selection-start-line="318" selection-start-column="29" selection-end-line="318" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LRUAdvanced.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="436">
+          <caret line="113" column="31" lean-forward="true" selection-start-line="113" selection-start-column="31" selection-end-line="113" selection-end-column="31" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/LRU.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="409">
-          <caret line="280" column="60" lean-forward="true" selection-start-line="280" selection-start-column="60" selection-end-line="280" selection-end-column="60" />
+        <state relative-caret-position="586">
+          <caret line="112" column="31" lean-forward="true" selection-start-line="112" selection-start-column="31" selection-end-line="112" selection-end-column="31" />
           <folding>
             <element signature="n#style#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
